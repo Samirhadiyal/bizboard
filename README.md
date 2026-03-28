@@ -7,19 +7,6 @@ The application allows multiple business users to register, manage their product
 
 ---
 
-## 🎯 Objective
-The main objectives of this project are:
-- To understand and implement **Multi Tenant SaaS architecture**
-- To allow multiple organizations to use a single application
-- To ensure **logical data isolation** between users
-- To build a simple business product management dashboard
-
----
-
-## 🧠 Multi-Tenant Architecture
-
-This project follows a **shared database, shared schema** approach.
-
 ### Key Idea:
 - A single application serves multiple users
 - All data is stored in the same database
@@ -46,20 +33,14 @@ This project follows a **shared database, shared schema** approach.
 
 ### Authentication & Security
 Client (Browser)
+<br>
 ↓
+<br>
 Flask Application (app.py)
+<br>
 ↓
+<br>
 SQLite Database (bizboard.db)
-
-
----
-
-## 🔐 Authentication System
-
-- Users can **register and log in**
-- Passwords are securely stored using hashing
-- Session is used to maintain login state
-- Only authenticated users can access dashboard features
 
 ---
 
@@ -94,16 +75,6 @@ SQLite Database (bizboard.db)
 
 ---
 
-## 🔒 Data Isolation Strategy
-
-- Each product is linked to a specific `user_id`
-- Users can only access their own data
-- Organization (`org`) represents tenant grouping
-
-> Note: This is a basic implementation of multi-tenancy using logical separation.
-
----
-
 ## 📊 Features
 
 - User Registration and Login
@@ -131,18 +102,16 @@ This project demonstrates key cloud concepts:
 - Password hashing using SHA-256
 - Session-based authentication (Flask sessions)
 
-git clone <repository-url>
+
+`git clone https://github.com/Samirhadiyal/bizboard.git`
 
 ---
 
 ### 2. Install Dependencies
-- flask
+- `pip install Flask`
 
 ### 3. Run Application
-- python app.py
+- `python app.py`
 
 ### 4. Access in Browser
 - https://
-
-
-## 🏗️ System Architecture
