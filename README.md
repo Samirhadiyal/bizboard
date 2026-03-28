@@ -131,6 +131,16 @@ This project demonstrates key cloud concepts:
 - Password hashing using SHA-256
 - Session-based authentication (Flask sessions)
 
+git clone <repository-url>
+
 ---
+
+### 2. Install Dependencies
+- flask
+
+### 3. Run Application
+- python app.py
+
+
 
 ## 🏗️ System Architecture
