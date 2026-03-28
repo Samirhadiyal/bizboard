@@ -45,6 +45,89 @@ This project follows a **shared database, shared schema** approach.
 - Flask Templates (Jinja2)
 
 ### Authentication & Security
+Client (Browser)
+↓
+Flask Application (app.py)
+↓
+SQLite Database (bizboard.db)
+
+
+---
+
+## 🔐 Authentication System
+
+- Users can **register and log in**
+- Passwords are securely stored using hashing
+- Session is used to maintain login state
+- Only authenticated users can access dashboard features
+
+---
+
+## 🗄️ Database Schema
+
+### Users Table
+- `id` (Primary Key)
+- `org` (Organization / Tenant identifier)
+- `field` (Business category)
+- `email` (Unique)
+- `password` (Hashed)
+
+### Products Table
+- `id` (Primary Key)
+- `user_id` (Foreign Key)
+- `name`
+- `quantity`
+- `price`
+- `detail`
+- `created_at`
+
+---
+
+## 🔄 Application Workflow
+
+1. User registers with organization details
+2. User logs into the system
+3. Session stores user identity
+4. User adds and manages products
+5. System retrieves only user-specific data
+6. Dashboard displays product information
+
+---
+
+## 🔒 Data Isolation Strategy
+
+- Each product is linked to a specific `user_id`
+- Users can only access their own data
+- Organization (`org`) represents tenant grouping
+
+> Note: This is a basic implementation of multi-tenancy using logical separation.
+
+---
+
+## 📊 Features
+
+- User Registration and Login
+- Secure Authentication System
+- Product Management (Add and View)
+- Dashboard Interface
+- Session Handling
+- Password Hashing
+
+---
+
+## ☁️ Cloud Computing Relevance
+
+This project demonstrates key cloud concepts:
+- Software as a Service (SaaS)
+- Multi-tenant architecture
+- Shared resource utilization
+- Centralized application model
+
+---
+
+## 🚀 How to Run the Project
+
+### 1. Clone Repository
 - Password hashing using SHA-256
 - Session-based authentication (Flask sessions)
 
