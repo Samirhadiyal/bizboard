@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BizBoard — {% if page == 'login' %}Log In{% else %}Sign Up{% endif %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}">
+</head>
+<body class="auth-page">
+
+  <div class="auth-box">
+    <h1>BizBoard</h1>
+    <p class="sub">Simple product dashboard for your business.</p>
+
+    <div class="tab-row">
+      <a href="/login"  class="tab-btn {% if page == 'login'  %}active{% endif %}">Log In</a>
+      <a href="/signup" class="tab-btn {% if page == 'signup' %}active{% endif %}">Sign Up</a>
+    </div>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% for category, message in messages %}
+        <div class="alert {{ category }}">{{ message }}</div>
+      {% endfor %}
+    {% endwith %}
+
+    {% if page == 'login' %}
+
+      <form method="POST" action="/login">
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" name="email" placeholder="you@company.com" required>
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" name="password" placeholder="••••••••" required>
+        </div>
+        <button type="submit" class="btn full">Log In</button>
+      </form>
+
+    {% else %}
+
+      <form method="POST" action="/signup">
+        <div class="form-group">
+          <label>Organisation Name</label>
+          <input type="text" name="org" placeholder="Acme Pvt. Ltd." required>
+        </div>
+        <div class="form-group">
+          <label>Business Field</label>
+          <input type="text" name="field" placeholder="Retail, Manufacturing, IT…" required>
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" name="email" placeholder="you@company.com" required>
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" name="password" placeholder="Min. 6 characters" required>
+        </div>
+        <button type="submit" class="btn full">Create Account</button>
+      </form>
+
+    {% endif %}
+  </div>
+
+</body>
+</html>

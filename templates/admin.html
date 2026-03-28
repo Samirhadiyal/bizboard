@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BizBoard — Admin</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+</head>
+<body>
+
+  <!-- Topbar -->
+  <div class="topbar">
+    <div class="brand">
+      BizBoard
+      <span class="admin-badge">Admin</span>
+    </div>
+    <a href="/admin/logout" class="logout-link">Log Out</a>
+  </div>
+
+  <div class="main">
+
+    <!-- Stats -->
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-label">Total Users</div>
+        <div class="stat-value">{{ total_users }}</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Total Products</div>
+        <div class="stat-value">{{ total_products }}</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Total Inventory Value</div>
+        <div class="stat-value">₹{{ "{:,.0f}".format(total_value) }}</div>
+      </div>
+    </div>
+
+    <!-- All Users Table -->
+    <div class="section-label">All Registered Users</div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Organisation</th>
+            <th>Field</th>
+            <th>Email</th>
+            <th>Products</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for u in users %}
+          <tr>
+            <td class="mono" style="color:var(--muted)">{{ u.id }}</td>
+            <td><strong>{{ u.org }}</strong></td>
+            <td class="muted">{{ u.field }}</td>
+            <td class="mono" style="font-size:12px">{{ u.email }}</td>
+            <td class="mono">{{ user_products[u.id] | length }}</td>
+          </tr>
+          {% else %}
+          <tr>
+            <td colspan="5" style="padding:24px; text-align:center; color:var(--muted); font-size:13px;">
+              No users yet.
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Per-User Product Breakdown -->
+    <div class="section-label" style="margin-top:40px;">Products by User</div>
+
+    {% for u in users %}
+    <div class="user-card">
+
+      <div class="user-header">
+        <div class="user-info">
+          <div class="user-org">{{ u.org }}</div>
+          <div class="user-meta">
+            <span><b>{{ u.field }}</b></span>
+            <span>{{ u.email }}</span>
+          </div>
+        </div>
+        <div style="display:flex; gap:8px; align-items:center;">
+          <span class="tag">{{ u.field }}</span>
+          <span class="count-badge">
+            {{ user_products[u.id] | length }} product{{ 's' if user_products[u.id] | length != 1 }}
+          </span>
+        </div>
+      </div>
+
+      {% if user_products[u.id] %}
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Product Name</th>
+            <th>Qty</th>
+            <th>Price</th>
+            <th>Value</th>
+            <th>Detail</th>
+            <th>Added</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for p in user_products[u.id] %}
+          <tr>
+            <td class="mono" style="color:var(--muted)">{{ loop.index }}</td>
+            <td><strong>{{ p.name }}</strong></td>
+            <td class="mono">{{ p.quantity }}</td>
+            <td class="mono">₹{{ "{:,.2f}".format(p.price) }}</td>
+            <td class="mono">₹{{ "{:,.0f}".format(p.quantity * p.price) }}</td>
+            <td class="muted">{{ p.detail or '—' }}</td>
+            <td class="muted">{{ p.created_at }}</td>
+          </tr>
+          {% endfor %}
+          <!-- Subtotal row -->
+          <tr style="background:#fafaf8;">
+            <td colspan="4" style="text-align:right; font-family:var(--mono); font-size:11px; color:var(--muted); letter-spacing:0.5px; text-transform:uppercase;">
+              Subtotal
+            </td>
+            <td class="mono" style="font-weight:600;">
+              ₹{{ "{:,.0f}".format(user_subtotals.get(u.id, 0)) }}
+            </td>
+            <td colspan="2"></td>
+          </tr>
+        </tbody>
+      </table>
+      {% else %}
+      <div class="no-products">No products added yet.</div>
+      {% endif %}
+
+    </div>
+    {% else %}
+    <p style="color:var(--muted); font-size:13px;">No users have signed up yet.</p>
+    {% endfor %}
+
+  </div>
+
+</body>
+</html>

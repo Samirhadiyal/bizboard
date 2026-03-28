@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BizBoard — Dashboard</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+</head>
+<body>
+
+  <!-- Topbar -->
+  <div class="topbar">
+    <div class="brand">BizBoard</div>
+    <a href="/logout" class="logout">Log Out</a>
+  </div>
+
+  <!-- Org Info Strip -->
+  <div class="org-strip">
+    <div><span>Org</span><strong>{{ session.org }}</strong></div>
+    <div><span>Field</span><strong>{{ session.field }}</strong></div>
+    <div><span>Email</span><strong>{{ session.email }}</strong></div>
+  </div>
+
+  <div class="main">
+
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% for category, message in messages %}
+        <div class="alert {{ category }}">{{ message }}</div>
+      {% endfor %}
+    {% endwith %}
+
+    <!-- Stats -->
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-label">Total Products</div>
+        <div class="stat-value">{{ products | length }}</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Total Quantity</div>
+        <div class="stat-value">{{ total_qty }}</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Inventory Value</div>
+        <div class="stat-value">₹{{ "{:,.0f}".format(total_value) }}</div>
+      </div>
+    </div>
+
+    <!-- Add Product Form -->
+    <div class="add-form">
+      <div class="form-title">Add Product</div>
+      <form method="POST" action="/add_product">
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Product Name</label>
+            <input type="text" name="name" placeholder="e.g. Cotton T-Shirt" required>
+          </div>
+          <div class="form-group">
+            <label>Quantity</label>
+            <input type="number" name="quantity" placeholder="0" min="0" required>
+          </div>
+          <div class="form-group">
+            <label>Price (₹)</label>
+            <input type="number" name="price" placeholder="0.00" min="0" step="0.01" required>
+          </div>
+          <div class="form-group" style="justify-content:flex-end; padding-bottom:2px;">
+            <span style="font-size:12px; color:var(--muted); font-family:var(--mono);">name, qty &amp; price required</span>
+          </div>
+          <div class="form-group span2">
+            <label>Detail / Description</label>
+            <textarea name="detail" placeholder="Optional notes about the product…"></textarea>
+          </div>
+        </div>
+        <div class="form-actions">
+          <button type="reset" class="btn outline">Clear</button>
+          <button type="submit" class="btn">＋ Add Product</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Product Table -->
+    <div class="section-label">Your Products</div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Product Name</th>
+            <th>Qty</th>
+            <th>Price</th>
+            <th>Detail</th>
+            <th>Added</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for p in products %}
+          <tr>
+            <td class="mono" style="color:var(--muted)">{{ loop.index }}</td>
+            <td><strong>{{ p.name }}</strong></td>
+            <td class="mono">{{ p.quantity }}</td>
+            <td class="mono">₹{{ "{:,.2f}".format(p.price) }}</td>
+            <td class="muted">{{ p.detail or '—' }}</td>
+            <td class="small">{{ p.created_at }}</td>
+            <td>
+              <form class="remove-form" method="POST" action="/remove_product/{{ p.id }}" data-name="{{ p.name }}">
+                <button type="submit" class="remove-btn">Remove</button>
+              </form>
+            </td>
+          </tr>
+          {% else %}
+          <tr>
+            <td colspan="7">
+              <div class="empty">📦 No products yet. Add your first product above.</div>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+</body>
+</html>

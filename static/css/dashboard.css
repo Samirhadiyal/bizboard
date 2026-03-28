@@ -1,0 +1,166 @@
+/* ── TOPBAR ─────────────────────────────────────────────────────── */
+
+.topbar {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 0 32px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand {
+  font-family: var(--mono);
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.logout {
+  padding: 8px 16px;
+  border: 1px solid var(--border);
+  background: transparent;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: var(--radius);
+  text-decoration: none;
+  color: var(--text);
+  transition: background 0.15s;
+}
+
+.logout:hover { background: var(--bg); }
+
+/* ── ORG STRIP ──────────────────────────────────────────────────── */
+
+.org-strip {
+  background: var(--text);
+  color: #fff;
+  padding: 7px 32px;
+  font-family: var(--mono);
+  font-size: 11px;
+  display: flex;
+  gap: 28px;
+  flex-wrap: wrap;
+}
+
+.org-strip span   { opacity: 0.5; }
+.org-strip strong { margin-left: 4px; }
+
+/* ── MAIN LAYOUT ────────────────────────────────────────────────── */
+
+.main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 32px;
+}
+
+/* ── STATS ──────────────────────────────────────────────────────── */
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.stat {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 20px 24px;
+}
+
+.stat-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
+.stat-value {
+  font-family: var(--mono);
+  font-size: 26px;
+  font-weight: 600;
+  letter-spacing: -1px;
+}
+
+/* ── ADD PRODUCT FORM ───────────────────────────────────────────── */
+
+.add-form {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 28px;
+  margin-bottom: 32px;
+}
+
+.form-title {
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 20px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px 20px;
+}
+
+.span2 { grid-column: span 2; }
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+/* ── REMOVE BUTTON ──────────────────────────────────────────────── */
+
+.remove-btn {
+  padding: 6px 12px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--danger);
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: var(--radius);
+  transition: background 0.15s, color 0.15s;
+}
+
+.remove-btn:hover {
+  background: var(--danger);
+  color: #fff;
+  border-color: var(--danger);
+}
+
+/* ── EMPTY STATE ────────────────────────────────────────────────── */
+
+.empty {
+  padding: 48px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+/* ── RESPONSIVE ─────────────────────────────────────────────────── */
+
+@media (max-width: 640px) {
+  .topbar    { padding: 0 16px; }
+  .org-strip { padding: 7px 16px; gap: 12px; }
+  .main      { padding: 20px 16px; }
+  .stats     { grid-template-columns: 1fr; }
+  .form-grid { grid-template-columns: 1fr; }
+  .span2     { grid-column: span 1; }
+  .add-form  { padding: 20px 16px; }
+}
