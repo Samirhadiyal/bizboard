@@ -1,66 +1,53 @@
-# BizBoard — Business Dashboard
+# BizBoard - Multi Tenant Business Dashboard
 
-A simple business product dashboard built with Python (Flask) + SQLite.
+## 📌 Overview
+BizBoard is a web-based application built using **Flask (Python)** that demonstrates the concept of a **Multi Tenant SaaS (Software as a Service)** system.
 
-## Files
+The application allows multiple business users to register, manage their products, and access a dashboard. Each user belongs to an organization (`org`), which acts as the **tenant identifier**, enabling logical separation of data within a shared system.
 
-```
-bizboard/
-├── app.py              ← Main Python app (Flask)
-├── requirements.txt    ← Python dependencies
-├── bizboard.db         ← SQLite database (auto-created on first run)
-└── templates/
-    ├── auth.html       ← Login & Signup page
-    └── dashboard.html  ← Main dashboard
-```
+---
 
-## Setup & Run
+## 🎯 Objective
+The main objectives of this project are:
+- To understand and implement **Multi Tenant SaaS architecture**
+- To allow multiple organizations to use a single application
+- To ensure **logical data isolation** between users
+- To build a simple business product management dashboard
 
-### 1. Install Python
-Make sure Python 3 is installed: https://python.org
+---
 
-### 2. Install Flask
-Open terminal in the `bizboard` folder and run:
-```
-pip install flask
-```
+## 🧠 Multi-Tenant Architecture
 
-### 3. Run the app
-```
-python app.py
-```
+This project follows a **shared database, shared schema** approach.
 
-### 4. Open in browser
-```
-http://localhost:5000
-```
+### Key Idea:
+- A single application serves multiple users
+- All data is stored in the same database
+- Each user is associated with an organization (`org`)
+- Data access is restricted based on user identity
 
-That's it. The SQLite database file (`bizboard.db`) is created automatically on first run.
+> This demonstrates **logical data isolation**, a core concept of multi-tenancy.
 
-## Database Structure
+---
 
-**users table**
-| Column   | Type    | Description              |
-|----------|---------|--------------------------|
-| id       | INTEGER | Primary key              |
-| org      | TEXT    | Organisation name        |
-| field    | TEXT    | Business field           |
-| email    | TEXT    | Unique email (login)     |
-| password | TEXT    | SHA-256 hashed password  |
+## ⚙️ Tech Stack
 
-**products table**
-| Column     | Type    | Description              |
-|------------|---------|--------------------------|
-| id         | INTEGER | Primary key              |
-| user_id    | INTEGER | Foreign key → users.id   |
-| name       | TEXT    | Product name             |
-| quantity   | INTEGER | Stock quantity           |
-| price      | REAL    | Unit price               |
-| detail     | TEXT    | Optional description     |
-| created_at | TEXT    | Date added               |
+### Backend
+- Python
+- Flask
 
-## Deploy Online (optional)
-To make it accessible from any device, deploy to:
-- **Railway** → https://railway.app (free tier available)
-- **Render**  → https://render.com (free tier available)
-- **PythonAnywhere** → https://pythonanywhere.com (free tier available)
+### Database
+- SQLite3 (lightweight relational database)
+
+### Frontend
+- HTML
+- CSS
+- Flask Templates (Jinja2)
+
+### Authentication & Security
+- Password hashing using SHA-256
+- Session-based authentication (Flask sessions)
+
+---
+
+## 🏗️ System Architecture
