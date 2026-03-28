@@ -29,7 +29,7 @@ The application allows multiple business users to register, manage their product
 ### Frontend
 - HTML
 - CSS
-- Flask Templates (Jinja2)
+- Flask 
 
 ### Authentication & Security
 Client (Browser)
