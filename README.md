@@ -103,9 +103,8 @@ This project demonstrates key cloud concepts:
 - Session-based authentication (Flask sessions)
 
 
-`git clone https://github.com/Samirhadiyal/bizboard.git`
+`git clone` https://github.com/Samirhadiyal/bizboard.git
 
----
 
 ### 2. Install Dependencies
 - `pip install Flask`
