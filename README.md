@@ -24,7 +24,7 @@ The application allows multiple business users to register, manage their product
 - Flask
 
 ### Database
-- SQLite3 (lightweight relational database)
+- SQL
 
 ### Frontend
 - HTML
