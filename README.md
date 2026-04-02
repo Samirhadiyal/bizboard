@@ -1,4 +1,4 @@
-# BizBoard - Multi Tenant Business Dashboard
+# BizBoard - Multi Tenant SaaS Business Dashboard
 
 ## 📌 Overview
 BizBoard is a web-based application built using **Flask (Python)** that demonstrates the concept of a **Multi Tenant SaaS (Software as a Service)** system.
