@@ -6,7 +6,8 @@ app.secret_key = 'bizboard-secret-key-change-in-production'
 DB = 'bizboard.db'
 
 # ── CHANGE THIS PASSWORD ──────────────────────────────────────────
-ADMIN_PASSWORD = 'admin123'
+ADMIN_EMAIL = 'admin@bizboard.com'
+ADMIN_PASSWORD = 'admin@123'
 
 # ── DATABASE ──────────────────────────────────────────────────────
 
@@ -221,16 +222,26 @@ def admin():
 def admin_login():
     error = None
     if request.method == 'POST':
-        if request.form.get('password') == ADMIN_PASSWORD:
+        email = request.form.get('email', '').strip().lower()
+        password = request.form.get('password', '')
+        
+        print(email, password)
+        
+        if email == ADMIN_EMAIL and password == ADMIN_PASSWORD:
             session['is_admin'] = True
+            session['admin_email'] = email
             return redirect(url_for('admin'))
-        error = 'Wrong password.'
+        else:
+            error = 'Invalid admin credentials.'
+
     return render_template('admin_login.html', error=error)
+    print(email, password)
 
 
 @app.route('/admin/logout')
 def admin_logout():
     session.pop('is_admin', None)
+    session.pop('admin_email', None)
     return redirect(url_for('admin_login'))
 
 
